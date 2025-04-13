@@ -10,7 +10,7 @@
     <h1>benvenuto nella home page</h1>
     <h2>loggati per eseguire operazioni</h2>
     
-    <a href="form.php"><button>visualizza tabelle</button></a>
+    <a href="form.php"><button>login</button></a>
 
 </body>
 </html>

@@ -7,6 +7,17 @@
 </head>
 <body>
 
+<?php
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    if ($error == 'username') {
+        echo "<script>alert('Username non trovato');</script>";
+    } elseif ($error == 'password') {
+        echo "<script>alert('Password errata');</script>";
+    }
+}
+?>
+
 <form action="login.php" method="POST">
     <div class="container">
         <label for="username"><b>Username</b></label>

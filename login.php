@@ -7,45 +7,54 @@
 </head>
 <body>
 <?php
+session_start();
+
 $servername = "localhost";
-$username = "root";
-$password = "";
+$db_user = "root";
+$db_password = "";
 $dbname = "prenotazione_aule";
 
-$connection = new mysqli($servername, $username, $password, $dbname);
+// Connessione al DB
+$connection = new mysqli($servername, $db_user, $db_password, $dbname);
+if ($connection->connect_error) {
+    die("Connessione fallita: " . $connection->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Prepara la query per cercare l'utente nel database
-    $query = "SELECT * FROM docenti WHERE username = $username";
-    $result = mysqli_query($connection, $query);
+    // Prepared statement per sicurezza
+    $stmt = $connection->prepare("SELECT * FROM docenti WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-
+    // Controlla se esiste l'utente
     if ($result->num_rows > 0) {
-        // L'utente esiste, verifica la password
         $row = $result->fetch_assoc();
-        if ($password == $row['password']) {
-            // Login riuscito
-            session_start();
-            $_SESSION['user'] = $user;
-            header("Location: menu.php");  // Redirect a menu.php
+
+        // Verifica password
+        if ($row['password'] === $password) {
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user'] = $username;
+            header("Location: menu.php");
             exit();
         } else {
-            echo "<script type='text/javascript'>alert('Password errata');</script>";
-            header("Location: form.php");
+            header("Location: form.php?error=password");
             exit();
         }
     } else {
-        echo "<script type='text/javascript'>alert('Docente non trovato');</script>";
-        header("Location: form.php");
+        header("Location: form.php?error=username");
         exit();
     }
+
+    $stmt->close();
 }
 
 $connection->close();
 ?>
+
 
 </body>
 </html>
