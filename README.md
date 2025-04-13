@@ -102,15 +102,5 @@ popolamento tabelle
    ```
 
 
+#### in alternativa importa direttamente il database sul tuo DBMS [database](comandi%20sql/prenotazione_aule.sql)
 
-
-sul tuo DBMS esegui i seguenti comandi:
-   ```SQL
-   CREATE DATABASE prenotazione_aule 
-   
-   USE prenotazione_aule 
-   
-   CREATE TABLE aule_risorse( 
-       id int PRIMARY KEY 
-       ) 
-   ```
