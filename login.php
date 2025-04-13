@@ -7,18 +7,9 @@
 </head>
 <body>
 <?php
+include_once "funzioni riutilizzate/db_connection.php";
+
 session_start();
-
-$servername = "localhost";
-$db_user = "root";
-$db_password = "";
-$dbname = "prenotazione_aule";
-
-// Connessione al DB
-$connection = new mysqli($servername, $db_user, $db_password, $dbname);
-if ($connection->connect_error) {
-    die("Connessione fallita: " . $connection->connect_error);
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
