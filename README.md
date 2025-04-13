@@ -39,7 +39,9 @@ Il sito deve permettere ai docenti di compiere le seguenti operazioni sul databa
    ```
 
 ### 2. Creazione del database:
-   sul tuo DBMS esegui i seguenti comandi:
+#### sul tuo DBMS esegui i seguenti comandi:
+
+creazione database e tabelle
    ```SQL
    CREATE DATABASE prenotazione_aule 
    
@@ -47,5 +49,68 @@ Il sito deve permettere ai docenti di compiere le seguenti operazioni sul databa
    
    CREATE TABLE aule_risorse( 
        id int PRIMARY KEY 
+       )
+   CREATE TABLE docenti(  
+       username int PRIMARY KEY AUTO_INCREMENT,  
+       nome varchar(20) NOT NULL,  
+       cognome varchar(20) NOT NULL,  
+       password char(16) NOT NULL  
+       ) 
+   
+   CREATE TABLE prenotare(  
+       username int NOT NULL,  
+       id int NOT NULL,  
+       data_prenotazione datetime NOT NULL, 
+       PRIMARY KEY (username, id), 
+       FOREIGN KEY (username) REFERENCES docenti(username), 
+       FOREIGN KEY (id) REFERENCES aule_risorse(id) 
        ) 
    ```
+
+
+
+
+popolamento tabelle
+   ```SQL
+   INSERT INTO aule_risorse (id) VALUES (1); 
+   INSERT INTO aule_risorse (id) VALUES (2); 
+   INSERT INTO aule_risorse (id) VALUES (3); 
+   INSERT INTO aule_risorse (id) VALUES (4); 
+   INSERT INTO aule_risorse (id) VALUES (5); 
+   INSERT INTO aule_risorse (id) VALUES (6); 
+   INSERT INTO aule_risorse (id) VALUES (7); 
+   INSERT INTO aule_risorse (id) VALUES (8); 
+   INSERT INTO aule_risorse (id) VALUES (9); 
+   INSERT INTO aule_risorse (id) VALUES (10); 
+   
+   INSERT INTO docenti (nome, cognome, password) VALUES ('Giovanni', 'Rossi', 'password1234567890'); 
+   INSERT INTO docenti (nome, cognome, password) VALUES ('Maria', 'Bianchi', 'password1234567890'); 
+   INSERT INTO docenti (nome, cognome, password) VALUES ('Antonio', 'Verdi', 'password1234567890'); 
+   INSERT INTO docenti (nome, cognome, password) VALUES ('Luisa', 'Neri', 'password1234567890'); 
+   INSERT INTO docenti (nome, cognome, password) VALUES ('Francesco', 'Gialli', 'password1234567890'); 
+   
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (1, 1, '2025-03-29 09:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (2, 2, '2025-03-29 10:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (3, 3, '2025-03-29 11:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (4, 4, '2025-03-29 12:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (5, 5, '2025-03-29 13:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (1, 6, '2025-03-30 09:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (2, 7, '2025-03-30 10:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (3, 8, '2025-03-30 11:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (4, 9, '2025-03-30 12:00:00'); 
+   INSERT INTO prenotare (username, id, data_prenotazione) VALUES (5, 10, '2025-03-30 13:00:00'); 
+   ```
+
+
+#### in alternativa importa direttamente il database sul tuo DBMS [database](comandi%20sql/prenotazione_aule.sql)
+
+### 3. Installazione delle dipendenze.
+   installa vlucas/phpdotenv con composer o altri gestori di pacchetti
+```bash
+composer require vlucas/phpdotenv
+```
+
+### 4. Esecuzione.
+sul tuo DBMS avvia il server e vai su `localhost/prenotazione_aule/index.php`
+
+[link](//localhost/prenotazione_aule/index.php)
