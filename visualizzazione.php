@@ -7,6 +7,8 @@
 </head>
 <body>
     <?php
+
+
     session_start();
 
     // se l'utente non è loggato lo reindirizza alla pagine di login
@@ -17,6 +19,11 @@
     ?> 
     
     <?php
+        require 'vendor/autoload.php'; // include le librerie Composer
+
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+
         $host = "localhost";
         $user = "root";
         $password = ""; // o la tua password
