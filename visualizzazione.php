@@ -7,12 +7,12 @@
 </head>
 <body>
 
+<a href="menu.php"><button>menu</button></a>
 
     <div class="div" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
 
-
     <?php
-        include_once "funzioni riutilizzate/login.php";
+        include_once "funzioni riutilizzate/login_check.php";
         include_once "funzioni riutilizzate/db_connection.php";  
 
         // // Query per ottenere il nome di tutte le tabelle

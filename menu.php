@@ -18,8 +18,8 @@
 
     <h1>loggin effettuato con successo</h1>
     <a href="visualizzazione.php"><button>visualizza tabelle</button></a>
-    <a href="eliminazione.php"><button>elimina prenotazione</button></a>
-    <a href="form.php"><button>prenota un'aula</button></a>
+    <a href="eliminazione_GUI.php"><button>elimina prenotazione</button></a>
+    <a href="aggiunta_GUI.php"><button>prenota un'aula</button></a>
 
 
 </body>
