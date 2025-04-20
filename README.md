@@ -15,6 +15,7 @@ Il sito deve permettere ai docenti di compiere le seguenti operazioni sul databa
 - prenotazione di aule da parte di utenti autenticati
 - eliminazione delle prenotazioni da parte di utenit autenticati
 
+Vi è poi un utente speciale: "admin" che può eseguire qualsiasi operazione su qualsiasi tabella  
 ## schema logico 
 - aule_risorse (<u>id<u>) 
 - docenti (<u>username</u>, nome, cognome, password) 
@@ -62,8 +63,8 @@ creazione database e tabelle
        id int NOT NULL,  
        data_prenotazione datetime NOT NULL, 
        PRIMARY KEY (username, id), 
-       FOREIGN KEY (username) REFERENCES docenti(username), 
-       FOREIGN KEY (id) REFERENCES aule_risorse(id) 
+       FOREIGN KEY (username) REFERENCES docenti(username) ON DELETE CASCADE, 
+       FOREIGN KEY (id) REFERENCES aule_risorse(id) ON DELETE CASCADE
        ) 
    ```
 
@@ -88,6 +89,8 @@ popolamento tabelle
    INSERT INTO docenti (nome, cognome, password) VALUES ('Antonio', 'Verdi', 'password1234567890'); 
    INSERT INTO docenti (nome, cognome, password) VALUES ('Luisa', 'Neri', 'password1234567890'); 
    INSERT INTO docenti (nome, cognome, password) VALUES ('Francesco', 'Gialli', 'password1234567890'); 
+   INSERT INTO docenti (nome, cognome, password) VALUES ('admin', 'admin', 'admin'); 
+
    
    INSERT INTO prenotare (username, id, data_prenotazione) VALUES (1, 1, '2025-03-29 09:00:00'); 
    INSERT INTO prenotare (username, id, data_prenotazione) VALUES (2, 2, '2025-03-29 10:00:00'); 

@@ -18,7 +18,7 @@ if (isset($_GET['error'])) {
 }
 ?>
 
-<form action="login.php" method="GET">
+<form action="login.php" method="POST">
     <div class="container">
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>

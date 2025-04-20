@@ -1,40 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<a href="menu.php"><button>menu</button></a>
+<?php
+include_once "funzioni riutilizzate/login_check.php";
+include_once "funzioni riutilizzate/db_connection.php";
 
-    <?php
-    include_once "funzioni riutilizzate/login_check.php";
-    include_once "funzioni riutilizzate/db_connection.php";
+if($_SERVER["REQUEST_METHOD"]=="GET"){
 
-    $data = $_GET['data_prenotazione'];
-    $id_aula = $_GET['id_aula'];
-    $timestamp = date('Y-m-d H:i:s', strtotime($data));
+    $tabella = $_GET["tabella"]; // Tabella sulla quale fare l'aggiunta
 
-    // echo $timestamp;
-    // echo "<br>";
-    $username = $_SESSION['user'];
-
-    if ($timestamp < time()) {
-        echo "Data non valida.";
-        exit;
-    }
-    $query = "INSERT INTO prenotare (username,id, data_prenotazione) VALUES ('$username', '$id_aula', '$timestamp')";
-
-    // echo $query;
-    $result = mysqli_query($connection, $query);
-
-    if ($result) {
-        echo "Prenotazione aggiunta con successo.";
-    } else {
-        echo "Errore durante l'aggiunta della prenotazione: " . mysqli_error($connection);
+    if($tabella == "aule_risorse") {
+        $id_aula = $_GET['id_aula'];
+    }elseif($tabella == "docenti") {
+        $nome = $_GET["nome"];
+        $cognome = $_GET["cognome"];
+        $password = $_GET["password"];
+    }else{
+        $id_aula = $_GET['id_aula'];
+        $data = $_GET['data_prenotazione'];
+        $timestamp = date('Y-m-d H:i:s', strtotime($data));
+        $usr_for_prenotation = $_GET["usr_for_prenotation"];
     }
 
-    ?>
-</body>
-</html>
+    $query;
+
+    if($tabella == "aule_risorse") {
+        $query = "INSERT INTO aule_risorse (id) VALUES ('$id_aula')";
+    }elseif($tabella == "docenti") {
+        $query = "INSERT INTO docenti (nome, cognome, password) VALUES ('$nome', '$cognome', '$password')";
+    }else{
+        $query = "INSERT INTO prenotare (username,id, data_prenotazione) VALUES ('$usr_for_prenotation', '$id_aula', '$timestamp')";
+    }
+
+    try{
+        $result = mysqli_query($connection, $query);
+    } catch (Exception $e) {
+        echo "Errore: " . $e->getMessage();
+    }
+
+}
+?>

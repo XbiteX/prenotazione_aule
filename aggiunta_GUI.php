@@ -10,6 +10,7 @@
         <a href="menu.php"><button>menu</button></a>
 
     <?php
+    echo "aaaaaaaaaaaaaaaaaa";
         include_once "funzioni riutilizzate/login_check.php";
         include_once "funzioni riutilizzate/db_connection.php";  
 
@@ -20,13 +21,14 @@
 
         if ($result->num_rows > 0) {
             echo "<table border='1' cellpadding='8'>";
-            echo "<tr><th>username</th><th>data_prenotazione</th></tr>";
+            echo "<tr><th>username</th><th>data_prenotazione</th><th>id_aula</hd></tr>";
         
             // Cicla tra i risultati e stampa ogni riga nella tabella
             while($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $row['username']. "</td>";
                 echo "<td>" . $row['data_prenotazione'] . "</td>";
+                echo "<td>" . $row['id'] . "</td>";
                 echo "</tr>";
             }
         
@@ -38,11 +40,10 @@
     ?>
     </div>
     
-    <form action="aggiunta_script.php" method="get" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <form action="aggiunta_script.php" method="GET">
     <label for="data_prenotazione">Data e ora prenotazione:</label>
     <input 
         type="datetime-local" 
-        id="data_prenotazione" 
         name="data_prenotazione" 
         step="3600" 
         required
@@ -50,9 +51,20 @@
     <label for="id_aula">ID aula:</label>
     <input 
         type="number" 
-        id="id_aula" 
         name="id_aula"  
         required
+    >
+
+    <input
+        type="hidden" 
+        name="usr_for_prenotation" 
+        value="<?php echo $username; ?>"
+    >
+
+    <input
+        type="hidden" 
+        name="tabella" 
+        value="prenotare"
     >
     <input type="submit" value="Aggiungi prenotazione">
     </form>
