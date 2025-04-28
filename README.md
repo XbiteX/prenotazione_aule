@@ -26,8 +26,6 @@ Vi è poi un utente speciale: "admin" che può eseguire qualsiasi operazione su 
 - PHP >= 7.4
 - Composer
 - MySQL / MariaDB 
-- Estensioni PHP necessarie: vlucas/phpdotenv
-
 
 
 ## ⚙️ Installazione
@@ -107,11 +105,6 @@ popolamento tabelle
 
 #### in alternativa importa direttamente il database sul tuo DBMS [database](comandi%20sql/prenotazione_aule.sql)
 
-### 3. Installazione delle dipendenze.
-   installa vlucas/phpdotenv con composer o altri gestori di pacchetti
-```bash
-composer require vlucas/phpdotenv
-```
 
 ### 4. Esecuzione.
 sul tuo DBMS avvia il server e vai su `localhost/prenotazione_aule/index.php`
